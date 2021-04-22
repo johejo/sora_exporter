@@ -2,8 +2,10 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"flag"
+	"fmt"
 	"net/http"
 	"os"
 	"os/signal"
@@ -18,22 +20,54 @@ import (
 )
 
 var (
-	listenAddr  string
-	metricsPath string
-	timeout     time.Duration
-	soraURL     string
+	listenAddr   string
+	metricsPath  string
+	timeout      time.Duration
+	soraURL      string
+	printVersion bool
+
+	version string
+	commit  string
+	date    string
 )
 
 func init() {
 	flag.StringVar(&listenAddr, "listen-addr", ":9199", "Address to listen for telemetry.")
 	flag.StringVar(&metricsPath, "metrics-path", "/metrics", "Path under which to expose metrics.")
 	flag.DurationVar(&timeout, "timeout", 5*time.Second, "Timeout for scraping to sora.")
-	flag.StringVar(&soraURL, "sora-url", "http://127.0.0.1:3000", "Address for sora.")
+	flag.StringVar(&soraURL, "sora-url", "http://127.0.0.1:3000", "URL for sora stats endpoint.")
+	flag.BoolVar(&printVersion, "version", false, "Print version.")
 }
 
 func main() {
-	flag.Parse()
 	lg := log.NewJSONLogger(os.Stderr)
+	flag.Parse()
+	if printVersion {
+		if version == "" {
+			version = "devel"
+		}
+		if commit == "" {
+			commit = "HEAD"
+		}
+		if date == "" {
+			date = time.Now().UTC().Format(time.RFC3339)
+		}
+		b, err := json.Marshal(struct {
+			Version string `json:"version"`
+			Commit  string `json:"commit"`
+			Date    string `json:"date"`
+		}{
+			Version: version,
+			Commit:  commit,
+			Date:    date,
+		})
+		if err != nil {
+			level.Error(lg).Log("err", err)
+			os.Exit(1)
+		}
+		fmt.Println(string(b))
+		os.Exit(0)
+	}
 
 	reg := prometheus.NewRegistry()
 	reg.MustRegister(

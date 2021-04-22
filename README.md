@@ -3,7 +3,7 @@
 [![ci](https://github.com/johejo/sora_exporter/workflows/ci/badge.svg?branch=main)](https://github.com/johejo/sora_exporter/actions?query=workflow%3Aci)
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/johejo/sora_exporter)](https://github.com/johejo/sora_exporter/releases)
 
-[WIP] Prometheus exporter for Sora metrics
+Prometheus exporter for Sora metrics
 
 https://sora.shiguredo.jp/
 
