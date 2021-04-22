@@ -14,10 +14,43 @@ builds:
       - '-trimpath'
     ldflags:
       - '-s -w -X main.version={{ .Version }} -X main.commit={{ .Commit }} -X main.date={{ .Date }}'
+nfpms:
+  - homepage: https://github.com/johejo/sora_exporter
+    maintainer: 'Mitsuo Heijo <mitsuo.heijo@gmail.com>'
+    description: "Prometheus exporter for WebRTC SFU Sora metrics."
+    license: MIT
+    formats:
+      - deb
+      - rpm
+dockers:
+  - goarch: amd64
+    use_buildx: true
+    image_templates:
+      - 'ghcr.io/johejo/sora_exporter:{{ .Tag }}-amd64'
+    build_flag_templates:
+      - '--label=org.opencontainers.image.created={{ .Date }}'
+      - '--label=org.opencontainers.image.title={{ .ProjectName }}'
+      - '--label=org.opencontainers.image.revision={{ .FullCommit }}'
+      - '--label=org.opencontainers.image.version={{ .Version }}'
+      - "--label=org.opencontainers.image.source={{ .GitURL }}"
+      - "--platform=linux/amd64"
+    dockerfile: Dockerfile
+  - goarch: arm64
+    use_buildx: true
+    image_templates:
+      - 'ghcr.io/johejo/sora_exporter:{{ .Tag }}-arm64'
+    build_flag_templates:
+      - '--label=org.opencontainers.image.created={{ .Date }}'
+      - '--label=org.opencontainers.image.title={{ .ProjectName }}'
+      - '--label=org.opencontainers.image.revision={{ .FullCommit }}'
+      - '--label=org.opencontainers.image.version={{ .Version }}'
+      - "--label=org.opencontainers.image.source={{ .GitURL }}"
+      - "--platform=linux/arm64"
+    dockerfile: Dockerfile
 checksum:
   name_template: 'checksums.txt'
 snapshot:
-  name_template: "{{ .Tag }}-next"
+  name_template: '{{ .Tag }}-next'
 changelog:
   sort: asc
   filters:
