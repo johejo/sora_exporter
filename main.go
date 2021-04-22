@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"runtime/debug"
 	"syscall"
 	"time"
 
@@ -44,13 +45,18 @@ func main() {
 	flag.Parse()
 	if printVersion {
 		if version == "" {
-			version = "devel"
+			info, ok := debug.ReadBuildInfo()
+			if ok {
+				version = info.Main.Version
+			} else {
+				version = "devel"
+			}
 		}
 		if commit == "" {
-			commit = "HEAD"
+			commit = "unknown"
 		}
 		if date == "" {
-			date = time.Now().UTC().Format(time.RFC3339)
+			date = "unknown"
 		}
 		b, err := json.Marshal(struct {
 			Version string `json:"version"`
