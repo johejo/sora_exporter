@@ -1,7 +1,7 @@
 # Sora Exporter
 
 [![ci](https://github.com/johejo/sora_exporter/workflows/ci/badge.svg?branch=main)](https://github.com/johejo/sora_exporter/actions?query=workflow%3Aci)
-[![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/johejo/sora_exporter)](https://github.com/johejo/sora_exporter/releases)
+[![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/johejo/sora_exporter?style?flag-square)](https://github.com/johejo/sora_exporter/releases)
 
 Prometheus exporter for Sora metrics
 
