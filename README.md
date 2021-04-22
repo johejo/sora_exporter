@@ -15,6 +15,10 @@ Author is not an employee of shiguredo.
 
 There is no support available when you contact shiguredo.
 
+## Install
+
+Download pre-built binary from [release page](https://github.com/johejo/sora_exporter/releases) or use `go install github.com/johejo/sora_exporter`.
+
 ## License
 
 MIT
