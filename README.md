@@ -1,5 +1,11 @@
 # Sora Exporter
 
+**IMPORTANT NOTES**
+
+Shiguredo has officially forked and started maintenance. https://github.com/shiguredo/sora_exporter
+
+This repository is not maintained.
+
 [![ci](https://github.com/johejo/sora_exporter/workflows/ci/badge.svg?branch=main)](https://github.com/johejo/sora_exporter/actions?query=workflow%3Aci)
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/johejo/sora_exporter?style?flag-square)](https://github.com/johejo/sora_exporter/releases)
 
